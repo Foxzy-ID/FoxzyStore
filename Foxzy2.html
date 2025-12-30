@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foxzy | Portfolio & Digital Store</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        :root {
+            --primary: #FF6B35;
+            --primary-dark: #E55A2B;
+            --secondary: #2D3047;
+            --dark: #1A1C2B;
+            --light: #F8F9FA;
+            --gray: #8A8D9B;
+            --success: #25D366;
+            --whatsapp: #128C7E;
+            --info: #4CC9F0;
+            --warning: #FFD166;
+            --danger: #EF476F;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--dark) 0%, #252836 100%);
+            color: var(--light);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* HEADER STYLISH */
+        header {
+            padding: 1.5rem 2.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(26, 28, 43, 0.92);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255, 107, 53, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--primary), var(--danger));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        .logo-text {
+            font-size: 2.4rem;
+            font-weight: 900;
+            background: linear-gradient(90deg, var(--primary), var(--warning));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .fox {
+            color: var(--primary);
+        }
+
+        .zy {
+            color: var(--light);
+        }
+
+        /* HAMBURGER BUTTON MODERN */
+        .hamburger-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 15px;
+            background: rgba(255, 107, 53, 0.1);
+            border: 2px solid rgba(255, 107, 53, 0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            position: relative;
+            z-index: 1001;
+        }
+
+ .hamburger-btn:hover {
+            background: rgba(255, 107, 53, 0.2);
+            border-color: var(--primary);
+            transform: rotate(180deg);
+        }
+
+        .hamburger-btn span {
+            width: 24px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 3px;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .hamburger-btn.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+            background: var(--danger);
+        }
+
+        .hamburger-btn.active span:nth-child(2) {
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+
+        .hamburger-btn.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+            background: var(--danger);
+        }
+
+        /* MODERN SIDEBAR - SLIDE FROM RIGHT */
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(3px);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .sidebar-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: -45%;
+            width: 45%;
+            height: 100vh;
+            background: linear-gradient(165deg, var(--secondary) 0%, var(--dark) 100%);
+            z-index: 1000;
+            transition: transform 0.6s cubic-bezier(0.77, 0.2, 0.05, 1.0);
+            transform: translateX(100%);
+            padding: 5rem 2.5rem 3rem;
+            overflow-y: auto;
+            box-shadow: -10px 0 40px rgba(0, 0, 0, 0.3);
+            border-left: 1px solid rgba(255, 107, 53, 0.2);
+        }
+
+        .sidebar.active {
+            transform: translateX(0);
+            right: 0;
+        }
+
+        /* SIDEBAR CLOSE BUTTON */
+        .sidebar-close {
+            position: absolute;
+            top: 1.8rem;
+            right: 2rem;
+            width: 45px;
+            height: 45px;
+            background: rgba(239, 71, 111, 0.15);
+            border: 2px solid var(--danger);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.3rem;
+            color: var(--danger);
+            transition: all 0.3s ease;
+            z-index: 1002;
+        }
+
+        .sidebar-close:hover {
+            background: var(--danger);
+            color: white;
+            transform: rotate(90deg) scale(1.1);
+        }
+
+        /* SIDEBAR CONTENT */
+        .sidebar-header {
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .sidebar-title {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .sidebar-subtitle {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* LANGUAGE SELECTOR */
+        .language-section {
+            margin-bottom: 2.5rem;
+        }
+
+        .section-label {
+            display: block;
+            color: var(--light);
+            margin-bottom: 1rem;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .lang-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.8rem;
+        }
+
+        .lang-btn {
+            padding: 0.9rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid transparent;
+            border-radius: 10px;
+            color: var(--light);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .lang-btn:hover {
+            background: rgba(255, 107, 53, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .lang-btn.active {
+            background: rgba(255, 107, 53, 0.2);
+            border-color: var(--primary);
+            color: var(--primary);
+            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.2);
+        }
+
+ /* MENU BUTTONS STYLISH */
+        .menu-section {
+            margin-bottom: 2rem;
+        }
+
+        .menu-btn {
+            width: 100%;
+            padding: 1.2rem 1.5rem;
+            margin-bottom: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: none;
+            border-radius: 12px;
+            color: var(--light);
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.6s;
+        }
+
+        .menu-btn:hover::before {
+            left: 100%;
+        }
+
+        .menu-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(-5px);
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .menu-btn i {
+            font-size: 1.3rem;
+            width: 30px;
+        }
+
+        .menu-btn-text {
+            flex: 1;
+            text-align: left;
+            margin-left: 1rem;
+        }
+
+        .menu-btn-arrow {
+            transition: transform 0.3s;
+        }
+
+        .menu-btn.active .menu-btn-arrow {
+            transform: rotate(180deg);
+        }
+
+        /* WHATSAPP BUTTON SPECIAL */
+        #waBtn {
+            background: linear-gradient(135deg, rgba(37, 211, 102, 0.15) 0%, rgba(18, 140, 126, 0.15) 100%);
+            border: 2px solid transparent;
+        }
+
+        #waBtn:hover, #waBtn.active {
+            background: linear-gradient(135deg, var(--success) 0%, var(--whatsapp) 100%);
+            border-color: var(--success);
+            color: white;
+        }
+
+        /* RGB BORDER ANIMATION */
+        @keyframes rgbGlow {
+            0% { box-shadow: 0 0 10px rgba(255, 0, 0, 0.7), 0 0 20px rgba(255, 0, 0, 0.5); }
+            25% { box-shadow: 0 0 10px rgba(0, 255, 0, 0.7), 0 0 20px rgba(0, 255, 0, 0.5); }
+            50% { box-shadow: 0 0 10px rgba(0, 0, 255, 0.7), 0 0 20px rgba(0, 0, 255, 0.5); }
+            75% { box-shadow: 0 0 10px rgba(255, 0, 255, 0.7), 0 0 20px rgba(255, 0, 255, 0.5); }
+            100% { box-shadow: 0 0 10px rgba(255, 0, 0, 0.7), 0 0 20px rgba(255, 0, 0, 0.5); }
+        }
+
+        .menu-btn.active {
+            animation: rgbGlow 2s linear infinite;
+        }
+
+        /* DROPDOWN CONTENT */
+        .dropdown-content {
+            max-height: 0;
+            overflow: hidden;
+            margin-bottom: 1rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            padding: 0 1.5rem;
+            transition: all 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0);
+        }
+
+        .dropdown-content.active {
+            max-height: 500px;
+            padding: 1.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .wa-number-display {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--success);
+            text-align: center;
+            margin: 1.5rem 0;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(37, 211, 102, 0.5);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .wa-warning {
+            text-align: center;
+            color: var(--warning);
+            font-size: 0.9rem;
+            font-style: italic;
+            padding-top: 1rem;
+            border-top: 1px dashed rgba(255, 209, 102, 0.3);
+        }
+
+        .faq-content {
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        .faq-content h4 {
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+            font-size: 1.2rem;
+        }
+
+        .faq-content p {
+            margin-bottom: 1rem;
+        }
+
+        /* MAIN CONTENT - MODERN */
+        .main-content {
+            padding: 3rem 2.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            animation: contentSlideIn 0.8s ease-out;
+        }
+
+        @keyframes contentSlideIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-section {
+            text-align: center;
+            margin-bottom: 4rem;
+            padding: 3rem 2rem;
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.1), rgba(45, 48, 71, 0.3));
+            border-radius: 25px;
+            border: 1px solid rgba(255, 107, 53, 0.2);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, var(--primary), var(--warning), var(--info));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            0% { filter: drop-shadow(0 0 10px rgba(255, 107, 53, 0.5)); }
+            100% { filter: drop-shadow(0 0 20px rgba(255, 107, 53, 0.8)); }
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.6;
+        }
+
+        /* ACTION BUTTONS */
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 3rem 0 5rem;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            padding: 1.5rem 3rem;
+            border: none;
+            border-radius: 18px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            min-width: 250px;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .action-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.7s;
+            z-index: -1;
+        }
+
+        .action-btn:hover::before {
+            left: 100%;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .prompt-btn {
+            background: linear-gradient(135deg, #6A11CB 0%, #2575FC 100%);
+            color: white;
+            box-shadow: 0 10px 30px rgba(106, 17, 203, 0.4);
+        }
+
+        .app-btn {
+            background: linear-gradient(135deg, #11998E 0%, #38EF7D 100%);
+            color: white;
+            box-shadow: 0 10px 30px rgba(17, 153, 142, 0.4);
+        }
+
+        .topup-btn {
+            background: linear-gradient(135deg, #F46B45 0%, #EEA849 100%);
+            color: white;
+            box-shadow: 0 10px 30px rgba(244, 107, 69, 0.4);
+        }
+
+      /* ASSETS GRID */
+        .assets-section {
+            margin-top: 5rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3.5rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--light);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--danger));
+            border-radius: 2px;
+        }
+
+        .section-description {
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .assets-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .asset-card {
+            background: linear-gradient(145deg, rgba(45, 48, 71, 0.8), rgba(26, 28, 43, 0.9));
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(255, 107, 53, 0.1);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .asset-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--danger));
+        }
+
+        .asset-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(255, 107, 53, 0.2);
+        }
+
+        .asset-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            text-align: center;
+        }
+
+        .asset-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--light);
+            text-align: center;
+        }
+
+        .asset-description {
+            color: var(--gray);
+            text-align: center;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .asset-price {
+            text-align: center;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .asset-button {
+            width: 100%;
+            padding: 0.9rem;
+            background: rgba(255, 107, 53, 0.1);
+            border: 2px solid var(--primary);
+            border-radius: 10px;
+            color: var(--primary);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .asset-button:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* FOOTER */
+        footer {
+            margin-top: 5rem;
+            padding: 3rem 2.5rem;
+            background: rgba(26, 28, 43, 0.9);
+            border-top: 1px solid rgba(255, 107, 53, 0.2);
+            text-align: center;
+        }
+
+        .footer-text {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 1200px) {
+            .sidebar {
+                width: 50%;
+                right: -50%;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 2.8rem;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .action-btn {
+                min-width: 300px;
+            }
+            
+            .sidebar {
+                width: 60%;
+                right: -60%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 1.2rem 1.5rem;
+            }
+            
+            .main-content {
+                padding: 2rem 1.5rem;
+            }
+            
+            .hero-title {
+                font-size: 2.3rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .sidebar {
+                width: 85%;
+                right: -85%;
+                padding: 4rem 1.5rem 2rem;
+            }
+            
+            .action-btn {
+                min-width: 100%;
+                padding: 1.2rem 2rem;
+            }
+            
+            .assets-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .lang-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .logo-text {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <div class="logo-container">
+            <div class="logo-icon">F</div>
+            <div class="logo-text">Foxzy</div>
+        </div>
+
+
+   <!-- HAMBURGER BUTTON -->
+        <button class="hamburger-btn" id="hamburgerBtn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </header>
+
+    <!-- SIDEBAR OVERLAY -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <!-- CLOSE BUTTON -->
+        <button class="sidebar-close" id="sidebarClose">
+            <i class="fas fa-times"></i>
+        </button>
+
+        <!-- SIDEBAR HEADER -->
+        <div class="sidebar-header">
+            <h2 class="sidebar-title" id="menuTitle">Navigation Menu</h2>
+            <p class="sidebar-subtitle" id="menuSubtitle">Browse all features</p>
+        </div>
+
+        <!-- LANGUAGE SELECTOR -->
+        <div class="language-section">
+            <span class="section-label" id="languageLabel">Select Language:</span>
+            <div class="lang-grid">
+                <button class="lang-btn active" data-lang="id">
+                    <i class="fas fa-flag"></i> Indonesia
+                </button>
+                <button class="lang-btn" data-lang="my">
+                    <i class="fas fa-flag"></i> Malaysia
+                </button>
+                <button class="lang-btn" data-lang="cn">
+                    <i class="fas fa-flag"></i> 中文
+                </button>
+                <button class="lang-btn" data-lang="en">
+                    <i class="fas fa-flag"></i> English
+                </button>
+            </div>
+        </div>
+
+        <!-- MENU BUTTONS -->
+        <div class="menu-section">
+            <!-- WHATSAPP BUTTON -->
+            <button class="menu-btn" id="waBtn">
+                <i class="fab fa-whatsapp"></i>
+                <span class="menu-btn-text" id="waText">WhatsApp Contact</span>
+                <i class="fas fa-chevron-down menu-btn-arrow"></i>
+            </button>
+            
+            <!-- WHATSAPP DROPDOWN -->
+            <div class="dropdown-content" id="waDropdown">
+                <div class="wa-number-display">0823 1310 4551</div>
+                <p class="wa-warning" id="waWarning">Please don't spam this number</p>
+            </div>
+
+            <!-- FAQ BUTTON -->
+            <button class="menu-btn" id="faqBtn">
+                <i class="fas fa-question-circle"></i>
+                <span class="menu-btn-text" id="faqText">FAQ & Information</span>
+                <i class="fas fa-chevron-down menu-btn-arrow"></i>
+            </button>
+            
+            <!-- FAQ DROPDOWN -->
+            <div class="dropdown-content" id="faqDropdown">
+                <div class="faq-content">
+                    <h4 id="faqTitle">About This Platform</h4>
+                    <p id="faqDesc1">Foxzy is a premium digital marketplace combining portfolio showcase with e-commerce functionality. We specialize in AI prompts, applications, and gaming services.</p>
+                    <p id="faqDesc2">Our mission is to bridge creativity with technology, providing high-quality digital products with exceptional user experience.</p>
+                    <p id="faqDesc3">All products are carefully curated and tested to ensure maximum value for our customers.</p>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+        <!-- HERO SECTION -->
+        <section class="hero-section">
+            <h1 class="hero-title" id="heroTitle">Digital Innovation & Creative Solutions</h1>
+            <p class="hero-subtitle" id="heroSubtitle">
+                Discover premium AI prompts, productivity applications, and gaming services in one seamless platform. 
+                Quality meets innovation at Foxzy.
+            </p>
+        </section>
+
+        <!-- ACTION BUTTONS -->
+        <div class="action-buttons">
+            <button class="action-btn prompt-btn" id="promptBtn">
+                <i class="fas fa-robot"></i>
+                <span id="promptText">AI Prompts</span>
+            </button>
+            
+            <button class="action-btn app-btn" id="appBtn">
+                <i class="fas fa-mobile-alt"></i>
+                <span id="appText">Applications</span>
+            </button>
+            
+            <button class="action-btn topup-btn" id="topupBtn">
+                <i class="fas fa-gamepad"></i>
+                <span id="topupText">Game Top-Up</span>
+            </button>
+        </div>
+
+        <!-- ASSETS SECTION -->
+        <section class="assets-section">
+            <div class="section-header">
+                <h2 class="section-title" id="assetsTitle">Featured Products</h2>
+                <p class="section-description" id="assetsDescription">
+                    Explore our curated selection of digital products. Each item is designed to enhance 
+                    your creativity, productivity, and entertainment experience.
+                </p>
+            </div>
+
+            <div class="assets-grid">
+                <!-- AI PROMPTS CARD -->
+                <div class="asset-card">
+                    <div class="asset-icon">
+                        <i class="fas fa-scroll"></i>
+                    </div>
+                    <h3 class="asset-title" id="promptCardTitle">AI Prompt Collection</h3>
+                    <p class="asset-description" id="promptCardDesc">
+                        Premium AI prompts for image generation, content creation, and creative writing. 
+                        Optimized for various AI platforms.
+                    </p>
+                    <div class="asset-price">IDR 49K</div>
+                    <button class="asset-button" id="promptCardBtn">View Details</button>
+                </div>
+
+                <!-- APP CARD -->
+                <div class="asset-card">
+                    <div class="asset-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3 class="asset-title" id="appCardTitle">Productivity Suite</h3>
+                    <p class="asset-description" id="appCardDesc">
+                        Collection of mobile and desktop applications designed to boost your productivity 
+                        and streamline workflows.
+                    </p>
+                    <div class="asset-price">IDR 79K</div>
+                    <button class="asset-button" id="appCardBtn">View Details</button>
+                </div>
+
+                <!-- GAME CARD -->
+                <div class="asset-card">
+                    <div class="asset-icon">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                    <h3 class="asset-title" id="gameCardTitle">Game Credits Pack</h3>
+                    <p class="asset-description" id="gameCardDesc">
+                        Instant top-up for popular games. Fast delivery, secure payment, and competitive 
+                        pricing for all major titles.
+                    </p>
+                    <div class="asset-price">IDR 100K</div>
+                    <button class="asset-button" id="gameCardBtn">View Details</button>
+                </div>
+
+                <!-- BUNDLE CARD -->
+                <div class="asset-card">
+                    <div class="asset-icon">
+                        <i class="fas fa-gem"></i>
+                    </div>
+                    <h3 class="asset-title" id="bundleCardTitle">Premium Bundle</h3>
+                    <p class="asset-description" id="bundleCardDesc">
+                        Complete package including AI prompts, productivity apps, and gaming credits at 
+                        a special discounted rate.
+                    </p>
+                    <div class="asset-price">IDR 199K</div>
+                    <button class="asset-button" id="bundleCardBtn">View Details</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer>
+            <p class="footer-text" id="footerText">
+                © 2024 Foxzy Digital Store. All rights reserved. | Designed with ❤️ for the creative community
+            </p>
+        </footer>
+    </main>
+
+    <script>
+       // ==================== TRANSLATION DATA ====================
+        const translations = {
+            id: {
+                // Sidebar
+                menuTitle: "Menu Navigasi",
+                menuSubtitle: "Jelajahi semua fitur",
+                languageLabel: "Pilih Bahasa:",
+                waText: "Kontak WhatsApp",
+                waWarning: "Tolong jangan spam nomor ini",
+                faqText: "FAQ & Informasi",
+                faqTitle: "Tentang Platform Ini",
+                faqDesc1: "Foxzy adalah marketplace digital premium yang menggabungkan portofolio dengan fungsi e-commerce. Kami spesialis dalam prompt AI, aplikasi, dan layanan gaming.",
+                faqDesc2: "Misi kami adalah menjembatani kreativitas dengan teknologi, menyediakan produk digital berkualitas tinggi dengan pengalaman pengguna yang luar biasa.",
+                faqDesc3: "Semua produk dipilih dan diuji dengan cermat untuk memastikan nilai maksimal bagi pelanggan kami.",
+                
+                // Main Content
+                heroTitle: "Inovasi Digital & Solusi Kreatif",
+                heroSubtitle: "Temukan prompt AI premium, aplikasi produktivitas, dan layanan gaming dalam satu platform yang mulus. Kualitas bertemu inovasi di Foxzy.",
+                promptText: "Prompt AI",
+                appText: "Aplikasi",
+                topupText: "Top-Up Game",
+                assetsTitle: "Produk Unggulan",
+                assetsDescription: "Jelajahi pilihan produk digital kami yang telah dikurasi. Setiap item dirancang untuk meningkatkan kreativitas, produktivitas, dan pengalaman hiburan Anda.",
+                
+                // Product Cards
+                promptCardTitle: "Koleksi Prompt AI",
+                promptCardDesc: "Prompt AI premium untuk generasi gambar, pembuatan konten, dan penulisan kreatif. Dioptimalkan untuk berbagai platform AI.",
+                promptCardBtn: "Lihat Detail",
+                appCardTitle: "Paket Produktivitas",
+                appCardDesc: "Koleksi aplikasi mobile dan desktop yang dirancang untuk meningkatkan produktivitas dan menyederhanakan alur kerja Anda.",
+                appCardBtn: "Lihat Detail",
+                gameCardTitle: "Paket Kredit Game",
+                gameCardDesc: "Top-up instan untuk game populer. Pengiriman cepat, pembayaran aman, dan harga kompetitif untuk semua judul utama.",
+                gameCardBtn: "Lihat Detail",
+                bundleCardTitle: "Paket Premium",
+                bundleCardDesc: "Paket lengkap termasuk prompt AI, aplikasi produktivitas, dan kredit gaming dengan harga diskon khusus.",
+                bundleCardBtn: "Lihat Detail",
+                
+                // Footer
+                footerText: "© 2024 Foxzy Digital Store. Hak cipta dilindungi. | Dirancang dengan ❤️ untuk komunitas kreatif"
+            },
+            my: {
+                menuTitle: "Menu Navigasi",
+                menuSubtitle: "Terokai semua ciri",
+                languageLabel: "Pilih Bahasa:",
+                waText: "Hubungan WhatsApp",
+                waWarning: "Tolong jangan spam nombor ini",
+                faqText: "Soalan Lazim & Maklumat",
+                faqTitle: "Mengenai Platform Ini",
+                faqDesc1: "Foxzy adalah pasaran digital premium yang menggabungkan portfolio dengan fungsi e-dagang. Kami pakar dalam prompt AI, aplikasi, dan perkhidmatan permainan.",
+                faqDesc2: "Misi kami adalah menjembatani kreativiti dengan teknologi, menyediakan produk digital berkualiti tinggi dengan pengalaman pengguna yang luar biasa.",
+                faqDesc3: "Semua produk dipilih dan diuji dengan teliti untuk memastikan nilai maksimum untuk pelanggan kami.",
+                
+                heroTitle: "Inovasi Digital & Penyelesaian Kreatif",
+                heroSubtitle: "Temui prompt AI premium, aplikasi produktiviti, dan perkhidmatan permainan dalam satu platform lancar. Kualiti bertemu inovasi di Foxzy.",
+                promptText: "Prompt AI",
+                appText: "Aplikasi",
+                topupText: "Top-Up Permainan",
+                assetsTitle: "Produk Unggulan",
+                assetsDescription: "Terokai pilihan produk digital kami yang telah dikurasi. Setiap item direka untuk meningkatkan kreativiti, produktiviti, dan pengalaman hiburan anda.",
+                
+                promptCardTitle: "Koleksi Prompt AI",
+                promptCardDesc: "Prompt AI premium untuk penjanaan imej, penciptaan kandungan, dan penulisan kreatif. Dioptimumkan untuk pelbagai platform AI.",
+                promptCardBtn: "Lihat Butiran",
+                appCardTitle: "Suite Produktiviti",
+                appCardDesc: "Koleksi aplikasi mudah alih dan desktop yang direka untuk meningkatkan produktiviti dan memudahkan aliran kerja anda.",
+                appCardBtn: "Lihat Butiran",
+                gameCardTitle: "Pakej Kredit Permainan",
+                gameCardDesc: "Top-up segera untuk permainan popular. Penghantaran pantas, pembayaran selamat, dan harga kompetitif untuk semua tajuk utama.",
+                gameCardBtn: "Lihat Butiran",
+                bundleCardTitle: "Pakej Premium",
+                bundleCardDesc: "Pakej lengkap termasuk prompt AI, aplikasi produktiviti, dan kredit permainan pada kadar harga diskaun khas.",
+                bundleCardBtn: "Lihat Butiran",
+                
+                footerText: "© 2024 Foxzy Digital Store. Hak cipta terpelihara. | Direka dengan ❤️ untuk komuniti kreatif"
+            },
+            cn: {
+                menuTitle: "导航菜单",
+                menuSubtitle: "浏览所有功能",
+                languageLabel: "选择语言:",
+                waText: "WhatsApp 联系",
+                waWarning: "请不要骚扰此号码",
+                faqText: "常见问题与信息",
+                faqTitle: "关于本平台",
+                faqDesc1: "Foxzy 是一个结合作品展示与电子商务功能的优质数字市场。我们专门提供AI提示词、应用程序和游戏服务。",
+                faqDesc2: "我们的使命是连接创造力与技术，提供高质量的数字产品和卓越的用户体验。",
+                faqDesc3: "所有产品都经过精心筛选和测试，确保为客户提供最大价值。",
+                
+                heroTitle: "数字创新与创意解决方案",
+                heroSubtitle: "在一个无缝平台中发现优质AI提示词、生产力应用程序和游戏服务。质量与创新在Foxzy相遇。",
+                promptText: "AI提示词",
+                appText: "应用程序",
+                topupText: "游戏充值",
+                assetsTitle: "精选产品",
+                assetsDescription: "探索我们精心策划的数字产品系列。每件商品都旨在提升您的创造力、生产力和娱乐体验。",
+                
+                promptCardTitle: "AI提示词合集",
+                promptCardDesc: "优质的AI提示词，适用于图像生成、内容创作和创意写作。针对各种AI平台优化。",
+                promptCardBtn: "查看详情",
+                appCardTitle: "生产力套件",
+                appCardDesc: "专为提升生产力和简化工作流程而设计的移动和桌面应用程序集合。",
+                appCardBtn: "查看详情",
+                gameCardTitle: "游戏点券包",
+                gameCardDesc: "热门游戏的即时充值。快速交付、安全支付和所有主流游戏的竞争性价格。",
+                gameCardBtn: "查看详情",
+                bundleCardTitle: "高级捆绑包",
+                bundleCardDesc: "完整套餐，包括AI提示词、生产力应用程序和游戏点券，享受特别折扣价。",
+                bundleCardBtn: "查看详情",
+                
+                footerText: "© 2024 Foxzy数字商店。保留所有权利。| 为创意社区用心设计 ❤️"
+            },
+            en: {
+                menuTitle: "Navigation Menu",
+                menuSubtitle: "Browse all features",
+                languageLabel: "Select Language:",
+                waText: "WhatsApp Contact",
+                waWarning: "Please don't spam this number",
+                faqText: "FAQ & Information",
+                faqTitle: "About This Platform",
+                faqDesc1: "Foxzy is a premium digital marketplace combining portfolio showcase with e-commerce functionality. We specialize in AI prompts, applications, and gaming services.",
+                faqDesc2: "Our mission is to bridge creativity with technology, providing high-quality digital products with exceptional user experience.",
+                faqDesc3: "All products are carefully curated and tested to ensure maximum value for our customers.",
+                
+                heroTitle: "Digital Innovation & Creative Solutions",
+                heroSubtitle: "Discover premium AI prompts, productivity applications, and gaming services in one seamless platform. Quality meets innovation at Foxzy.",
+                promptText: "AI Prompts",
+                appText: "Applications",
+                topupText: "Game Top-Up",
+                assetsTitle: "Featured Products",
+                assetsDescription: "Explore our curated selection of digital products. Each item is designed to enhance your creativity, productivity, and entertainment experience.",
+                
+                promptCardTitle: "AI Prompt Collection",
+                promptCardDesc: "Premium AI prompts for image generation, content creation, and creative writing. Optimized for various AI platforms.",
+                promptCardBtn: "View Details",
+                appCardTitle: "Productivity Suite",
+                appCardDesc: "Collection of mobile and desktop applications designed to boost your productivity and streamline workflows.",
+                appCardBtn: "View Details",
+                gameCardTitle: "Game Credits Pack",
+                gameCardDesc: "Instant top-up for popular games. Fast delivery, secure payment, and competitive pricing for all major titles.",
+                gameCardBtn: "View Details",
+                bundleCardTitle: "Premium Bundle",
+                bundleCardDesc: "Complete package including AI prompts, productivity apps, and gaming credits at a special discounted rate.",
+                bundleCardBtn: "View Details",
+                
+                footerText: "© 2024 Foxzy Digital Store. All rights reserved. | Designed with ❤️ for the creative community"
+            }
+        };
+
+        // ==================== DOM ELEMENTS ====================
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+        const sidebarClose = document.getElementById('sidebarClose');
+        const langButtons = document.querySelectorAll('.lang-btn');
+        const waBtn = document.getElementById('waBtn');
+        const faqBtn = document.getElementById('faqBtn');
+        const waDropdown = document.getElementById('waDropdown');
+        const faqDropdown = document.getElementById('faqDropdown');
+        const actionButtons = document.querySelectorAll('.action-btn');
+        const assetButtons = document.querySelectorAll('.asset-button');
+        const assetCards = document.querySelectorAll('.asset-card');
+
+        // ==================== STATE VARIABLES ====================
+        let currentLang = 'id';
+        let sidebarOpen = false;
+
+        // ==================== SIDEBAR FUNCTIONS ====================
+        function openSidebar() {
+            sidebar.classList.add('active');
+            sidebarOverlay.classList.add('active');
+            hamburgerBtn.classList.add('active');
+            sidebarOpen = true;
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeSidebar() {
+            sidebar.classList.remove('active');
+            sidebarOverlay.classList.remove('active');
+            hamburgerBtn.classList.remove('active');
+            
+            // Close dropdowns when closing sidebar
+            waBtn.classList.remove('active');
+            faqBtn.classList.remove('active');
+            waDropdown.classList.remove('active');
+            faqDropdown.classList.remove('active');
+            
+            sidebarOpen = false;
+            document.body.style.overflow = 'auto';
+        }
+
+        // ==================== EVENT LISTENERS ====================
+        // Hamburger button
+        hamburgerBtn.addEventListener('click', () => {
+            if (!sidebarOpen) {
+                openSidebar();
+            } else {
+                closeSidebar();
+            }
+        });
+
+        // Close sidebar with X button
+        sidebarClose.addEventListener('click', closeSidebar);
+
+        // Close sidebar with overlay click
+        sidebarOverlay.addEventListener('click', closeSidebar);
+
+        // Close sidebar with ESC key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && sidebarOpen) {
+                closeSidebar();
+            }
+        });
+
+        // ==================== LANGUAGE FUNCTIONALITY ====================
+        function updateLanguage(lang) {
+            currentLang = lang;
+            const t = translations[lang];
+            
+            // Update all translatable elements
+            document.querySelectorAll('[id]').forEach(element => {
+                const id = element.id;
+                if (t[id]) {
+                    if (element.tagName === 'INPUT' || element.tagName === 'BUTTON') {
+                        element.textContent = t[id];
+                    } else {
+                        element.textContent = t[id];
+                    }
+                }
+            });
+            
+            // Update active language button
+            langButtons.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('data-lang') === lang) {
+                    btn.classList.add('active');
+                }
+            });
+        }
+
+        // Language button clicks
+        langButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const lang = btn.getAttribute('data-lang');
+                updateLanguage(lang);
+            });
+        });
+       // ==================== DROPDOWN FUNCTIONALITY ====================
+        function toggleDropdown(button, dropdown) {
+            const isActive = button.classList.contains('active');
+            
+            // Close all other dropdowns
+            document.querySelectorAll('.menu-btn.active').forEach(btn => {
+                if (btn !== button) {
+                    btn.classList.remove('active');
+                }
+            });
+            
+            document.querySelectorAll('.dropdown-content.active').forEach(content => {
+                if (content !== dropdown) {
+                    content.classList.remove('active');
+                }
+            });
+            
+            // Toggle current dropdown
+            button.classList.toggle('active');
+            dropdown.classList.toggle('active');
+        }
+
+        // WhatsApp button
+        waBtn.addEventListener('click', () => {
+            toggleDropdown(waBtn, waDropdown);
+        });
+
+        // FAQ button
+        faqBtn.addEventListener('click', () => {
+            toggleDropdown(faqBtn, faqDropdown);
+        });
+
+        // ==================== ACTION BUTTONS ====================
+        actionButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Add click animation
+                btn.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    btn.style.transform = '';
+                }, 200);
+                
+                // Show message based on button type
+                const btnType = btn.id.replace('Btn', '');
+                const messages = {
+                    prompt: 'AI Prompts section will be displayed here!',
+                    app: 'Applications catalog coming soon!',
+                    topup: 'Game top-up system will be implemented here!'
+                };
+                
+                if (messages[btnType]) {
+                    alert(messages[btnType] + ' 🚀');
+                }
+            });
+        });
+
+        // ==================== ASSET CARDS INTERACTION ====================
+        assetButtons.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const card = btn.closest('.asset-card');
+                const title = card.querySelector('.asset-title').textContent;
+                
+                // Button animation
+                btn.style.background = 'var(--primary)';
+                btn.style.color = 'white';
+                setTimeout(() => {
+                    btn.style.background = '';
+                    btn.style.color = '';
+                }, 300);
+                
+                alert(`Purchase flow for "${title}" will be implemented here! 💳`);
+            });
+        });
+
+        assetCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const title = card.querySelector('.asset-title').textContent;
+                const price = card.querySelector('.asset-price').textContent;
+                
+                // Card click animation
+                card.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    card.style.transform = '';
+                }, 200);
+                
+                console.log(`Selected product: ${title} - ${price}`);
+            });
+        });
+
+        // ==================== INITIALIZATION ====================
+        // Set initial language
+        updateLanguage('id');
+
+        // Initialize with sidebar closed
+        closeSidebar();
+
+        // Add some console styling for fun
+        console.log('%c🦊 Foxzy Platform Initialized 🚀', 'color: #FF6B35; font-size: 16px; font-weight: bold;');
+        console.log('%cReady for digital innovation!', 'color: #4CC9F0;');
+    </script>
+</body>
+</html>
